@@ -20,7 +20,7 @@ module.exports = {
         unique: true,
         comment: 'Title in Portuguese',
       },
-      isNegative: {
+      is_negative: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,

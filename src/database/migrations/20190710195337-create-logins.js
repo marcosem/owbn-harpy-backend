@@ -24,7 +24,7 @@ module.exports = {
         allowNull: false,
         comment: 'Crypted password',
       },
-      isST: {
+      is_st: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
