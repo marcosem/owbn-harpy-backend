@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         comment: 'Position ID',
       },
-      poisition_en: {
+      position_en: {
         type: Sequelize.STRING(30),
         allowNull: false,
         unique: true,
