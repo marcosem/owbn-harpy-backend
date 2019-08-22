@@ -2,13 +2,13 @@
 // declaration for importing modules
 import 'dotenv/config'; // load all environment variables to process.env
 import express from 'express';
-// import path from 'path';
+import path from 'path';
 import cors from 'cors';
 import Youch from 'youch';
-//import * as Sentry from '@sentry/node';
+// import * as Sentry from '@sentry/node';
 import 'express-async-errors';
 import './database';
-//import sentryConfig from './config/sentry';
+// import sentryConfig from './config/sentry';
 import routes from './routes';
 
 class App {
@@ -24,7 +24,7 @@ class App {
 
   middlewares() {
     // The request handler must be the first middleware on the app
-    //this.server.use(Sentry.Handlers.requestHandler());
+    // this.server.use(Sentry.Handlers.requestHandler());
 
     // This allow other addresses to access this API, in this case it is all
     // If you want to have a specific address allowed to access, you need to do something like:
@@ -34,20 +34,34 @@ class App {
 
     // Make the application eligible to receibe requires in JSon format.
     this.server.use(express.json());
+
     // Define the folder for files, it will be useful on frontend
-    /*
+    this.server.use(
+      '/files/clan',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads', 'clan'))
+    );
+
+    this.server.use(
+      '/files/members',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads', 'members'))
+    );
+
+    this.server.use(
+      '/files/domains',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads', 'domains'))
+    );
+
     this.server.use(
       '/files',
-      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
+      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads', 'resized'))
     );
-    */
   }
 
   routes() {
     this.server.use(routes);
 
     // The error handler must be before any other error middleware
-    //this.server.use(Sentry.Handlers.errorHandler());
+    // this.server.use(Sentry.Handlers.errorHandler());
   }
 
   exceptionHandle() {

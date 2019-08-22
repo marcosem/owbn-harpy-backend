@@ -2,14 +2,15 @@
 // By using the module "sucrase" you can use the syntaxe "import" instead of variable
 // declaration for importing modules
 import { Router } from 'express';
-// import multer from 'multer';
+import multer from 'multer';
 import StatusController from './app/controllers/StatusController';
 import PositionsController from './app/controllers/PositionsController';
 import StatusPositionController from './app/controllers/StatusPositionController';
-// import multerConfig from './config/multer';
+import FilesController from './app/controllers/FilesController';
+import multerConfig from './config/multer';
 
 const routes = new Router();
-// const upload = multer(multerConfig);
+const upload = multer(multerConfig);
 
 // /////////////////////////////////////////////////////////////////////////////
 // Status Routes
@@ -34,5 +35,9 @@ routes.get('/positionstatus/:id', StatusPositionController.index); // Load Statu
 routes.post('/positionstatus', StatusPositionController.store); // Save a StatusPositions
 routes.put('/positionstatus/:id', StatusPositionController.update); // Update an StatusPositions by id
 routes.delete('/positionstatus/:id', StatusPositionController.delete); // Remove an StatusPositions by id
+
+// /////////////////////////////////////////////////////////////////////////////
+// Files Routes
+routes.post('/files/:type', upload.single('file'), FilesController.store); // Save files
 
 export default routes;
