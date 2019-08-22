@@ -5,6 +5,7 @@ import { Router } from 'express';
 // import multer from 'multer';
 import StatusController from './app/controllers/StatusController';
 import PositionsController from './app/controllers/PositionsController';
+import StatusPositionController from './app/controllers/StatusPositionController';
 // import multerConfig from './config/multer';
 
 const routes = new Router();
@@ -25,5 +26,13 @@ routes.get('/positions/:id', PositionsController.index); // Load Position by id
 routes.post('/positions', PositionsController.store); // Save a Position
 routes.put('/positions/:id', PositionsController.update); // Update an Position by id
 routes.delete('/positions/:id', PositionsController.delete); // Remove an Position by id
+
+// /////////////////////////////////////////////////////////////////////////////
+// Status-Positions Routes
+routes.get('/positionstatus', StatusPositionController.index); // Load all StatusPositions
+routes.get('/positionstatus/:id', StatusPositionController.index); // Load StatusPositions by id
+routes.post('/positionstatus', StatusPositionController.store); // Save a StatusPositions
+routes.put('/positionstatus/:id', StatusPositionController.update); // Update an StatusPositions by id
+routes.delete('/positionstatus/:id', StatusPositionController.delete); // Remove an StatusPositions by id
 
 export default routes;

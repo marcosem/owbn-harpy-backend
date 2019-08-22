@@ -2,9 +2,10 @@ import Sequelize from 'sequelize';
 
 import Status from '../app/models/Status';
 import Positions from '../app/models/Positions';
+import StatusPosition from '../app/models/StatusPosition';
 import databaseConfig from '../config/database';
 
-const models = [Status, Positions];
+const models = [Status, Positions, StatusPosition];
 
 class Database {
   constructor() {
