@@ -5,11 +5,15 @@ class Files extends Model {
     super.init(
       {
         name: Sequelize.STRING,
+        type: Sequelize.STRING,
         path: Sequelize.STRING,
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `${process.env.APP_URL}/files/${this.path}`;
+            const fullPath =
+              this.type === 'none' ? this.path : `${this.type}/${this.path}`;
+
+            return `${process.env.APP_URL}/files/${fullPath}`;
           },
         },
       },

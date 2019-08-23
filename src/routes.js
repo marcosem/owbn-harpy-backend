@@ -7,6 +7,7 @@ import StatusController from './app/controllers/StatusController';
 import PositionsController from './app/controllers/PositionsController';
 import StatusPositionController from './app/controllers/StatusPositionController';
 import FilesController from './app/controllers/FilesController';
+import ClansController from './app/controllers/ClansController';
 import multerConfig from './config/multer';
 
 const routes = new Router();
@@ -39,5 +40,11 @@ routes.delete('/positionstatus/:id', StatusPositionController.delete); // Remove
 // /////////////////////////////////////////////////////////////////////////////
 // Files Routes
 routes.post('/files/:type', upload.single('file'), FilesController.store); // Save files
+
+// /////////////////////////////////////////////////////////////////////////////
+// Clans Rutes
+routes.get('/clans', ClansController.index); // Load all Clans
+routes.get('/clans/:id', ClansController.index); // Load Clan by id
+routes.post('/clans', ClansController.store); // Save a Clan
 
 export default routes;

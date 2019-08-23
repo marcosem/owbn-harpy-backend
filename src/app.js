@@ -42,12 +42,12 @@ class App {
     );
 
     this.server.use(
-      '/files/members',
+      '/files/member',
       express.static(path.resolve(__dirname, '..', 'tmp', 'uploads', 'members'))
     );
 
     this.server.use(
-      '/files/domains',
+      '/files/domain',
       express.static(path.resolve(__dirname, '..', 'tmp', 'uploads', 'domains'))
     );
 

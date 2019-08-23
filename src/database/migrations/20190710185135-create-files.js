@@ -13,12 +13,18 @@ module.exports = {
         allowNull: false,
         comment: 'File name',
       },
+      type: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        comment: 'Type of file',
+      },
       path: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
         comment: 'File full path',
       },
+
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

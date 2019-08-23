@@ -1,7 +1,7 @@
 import sharp from 'sharp';
 import path from 'path';
 import fs from 'fs';
-// import Files from '../models/Files';
+import Files from '../models/Files';
 
 class FileController {
   async store(req, res) {
@@ -54,17 +54,11 @@ class FileController {
     // delete the old image (path uploads)
     fs.unlinkSync(filePath);
 
-    /*
     const file = await Files.create({
       name,
-      path: filename,
-    });
-    */
-
-    const file = {
-      name,
+      type,
       path: newFilename,
-    };
+    });
 
     return res.json(file);
   }
