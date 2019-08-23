@@ -46,5 +46,7 @@ routes.post('/files/:type', upload.single('file'), FilesController.store); // Sa
 routes.get('/clans', ClansController.index); // Load all Clans
 routes.get('/clans/:id', ClansController.index); // Load Clan by id
 routes.post('/clans', ClansController.store); // Save a Clan
+routes.put('/clans/:id', ClansController.update); // Update an Clan by id
+routes.delete('/clans/:id', ClansController.delete); // Remove an Clan by id
 
 export default routes;

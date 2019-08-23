@@ -63,45 +63,56 @@ class ClansController {
     return res.json(clan);
   }
 
-  /*
   async update(req, res) {
     const schema = Yup.object().shape({
-      title_en: Yup.string(),
-      title_pt: Yup.string(),
-      is_negative: Yup.boolean(),
-      notes: Yup.string(),
+      clan_en: Yup.string(),
+      clan_pt: Yup.string(),
+      clan_short_name_en: Yup.string(),
+      clan_short_name_pt: Yup.string(),
+      clan_logo: Yup.number(),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails!' });
     }
 
-    const status = await Status.findByPk(req.params.id);
+    const clan = await Clans.findByPk(req.params.id);
 
-    if (!status) {
-      return res.status(400).json({ error: 'Status not found!' });
+    if (!clan) {
+      return res.status(400).json({ error: 'Clan not found!' });
     }
 
-    const { title_en, title_pt, is_negative, notes } = req.body;
+    const {
+      clan_en,
+      clan_pt,
+      clan_short_name_en,
+      clan_short_name_pt,
+      clan_logo,
+    } = req.body;
 
-    await status.update({
-      title_en: !title_en ? status.title_en : title_en,
-      title_pt: !title_pt ? status.title_pt : title_pt,
-      is_negative: !is_negative ? status.is_negative : is_negative,
-      notes: !notes ? status.notes : notes,
+    await clan.update({
+      clan_en: !clan_en ? clan.clan_en : clan_en,
+      clan_pt: !clan_pt ? clan.clan_pt : clan_pt,
+      clan_short_name_en: !clan_short_name_en
+        ? clan.clan_short_name_en
+        : clan_short_name_en,
+      clan_short_name_pt: !clan_short_name_pt
+        ? clan.clan_short_name_pt
+        : clan_short_name_pt,
+      clan_logo: !clan_logo ? clan.clan_logo : clan_logo,
     });
 
-    return res.json(status);
+    return res.json(clan);
   }
 
   async delete(req, res) {
-    const status = await Status.findByPk(req.params.id);
+    const clan = await Clans.findByPk(req.params.id);
 
-    if (!status) {
+    if (!clan) {
       return res.status(400).json({ error: 'Status not found!' });
     }
 
-    await Status.destroy({ where: { id: req.params.id } }).then(
+    await Clans.destroy({ where: { id: req.params.id } }).then(
       deletedRecord => {
         if (deletedRecord === 1) {
           return res.status(200).json({ message: 'Deleted successfully' });
@@ -112,7 +123,6 @@ class ClansController {
 
     return res.status(200);
   }
-  */
 }
 
 export default new ClansController();
