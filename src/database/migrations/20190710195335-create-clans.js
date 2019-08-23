@@ -23,13 +23,13 @@ module.exports = {
       clan_short_name_en: {
         type: Sequelize.STRING(30),
         allowNull: true,
-        unique: true,
+        unique: false,
         comment: 'Clan short name in English',
       },
       clan_short_name_pt: {
         type: Sequelize.STRING(30),
         allowNull: true,
-        unique: true,
+        unique: false,
         comment: 'Clan short name in Portuguese',
       },
       clan_logo: {
