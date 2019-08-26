@@ -8,6 +8,7 @@ import PositionsController from './app/controllers/PositionsController';
 import StatusPositionController from './app/controllers/StatusPositionController';
 import FilesController from './app/controllers/FilesController';
 import ClansController from './app/controllers/ClansController';
+import DomainsController from './app/controllers/DomainsController';
 import multerConfig from './config/multer';
 
 const routes = new Router();
@@ -48,5 +49,13 @@ routes.get('/clans/:id', ClansController.index); // Load Clan by id
 routes.post('/clans', ClansController.store); // Save a Clan
 routes.put('/clans/:id', ClansController.update); // Update an Clan by id
 routes.delete('/clans/:id', ClansController.delete); // Remove an Clan by id
+
+// /////////////////////////////////////////////////////////////////////////////
+// Clans Rutes
+routes.get('/domains', DomainsController.index); // Load all Domains
+routes.get('/domains/:id', DomainsController.index); // Load Domains by id
+routes.post('/domains', DomainsController.store); // Save a Domains
+routes.put('/domains/:id', DomainsController.update); // Update an Domains by id
+routes.delete('/domains/:id', DomainsController.delete); // Remove an Domains by id
 
 export default routes;

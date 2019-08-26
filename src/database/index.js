@@ -5,9 +5,10 @@ import Positions from '../app/models/Positions';
 import StatusPosition from '../app/models/StatusPosition';
 import Files from '../app/models/Files';
 import Clans from '../app/models/Clans';
+import Domains from '../app/models/Domains';
 import databaseConfig from '../config/database';
 
-const models = [Status, Positions, StatusPosition, Files, Clans];
+const models = [Status, Positions, StatusPosition, Files, Clans, Domains];
 
 class Database {
   constructor() {
