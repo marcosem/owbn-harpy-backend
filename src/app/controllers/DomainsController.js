@@ -61,7 +61,7 @@ class DomainsController {
     const domain = await Domains.findByPk(req.params.id);
 
     if (!domain) {
-      return res.status(400).json({ error: 'Clan not found!' });
+      return res.status(400).json({ error: 'Domain not found!' });
     }
 
     const { name, main_city, picture } = req.body;
@@ -79,7 +79,7 @@ class DomainsController {
     const domain = await Domains.findByPk(req.params.id);
 
     if (!domain) {
-      return res.status(400).json({ error: 'Status not found!' });
+      return res.status(400).json({ error: 'Domain not found!' });
     }
 
     await Domains.destroy({ where: { id: req.params.id } }).then(
@@ -87,7 +87,7 @@ class DomainsController {
         if (deletedRecord === 1) {
           return res.status(200).json({ message: 'Deleted successfully' });
         }
-        return res.status(404).json({ error: 'Status not found' });
+        return res.status(404).json({ error: 'Domain not found' });
       }
     );
 

@@ -50,7 +50,7 @@ class PositionsController {
     const position = await Positions.findByPk(req.params.id);
 
     if (!position) {
-      return res.status(400).json({ error: 'Status not found!' });
+      return res.status(400).json({ error: 'Position not found!' });
     }
 
     const { position_en, position_pt } = req.body;
@@ -67,7 +67,7 @@ class PositionsController {
     const position = await Positions.findByPk(req.params.id);
 
     if (!position) {
-      return res.status(400).json({ error: 'Status not found!' });
+      return res.status(400).json({ error: 'Position not found!' });
     }
 
     await Positions.destroy({ where: { id: req.params.id } }).then(
@@ -75,7 +75,7 @@ class PositionsController {
         if (deletedRecord === 1) {
           return res.status(200).json({ message: 'Deleted successfully' });
         }
-        return res.status(404).json({ error: 'Status not found' });
+        return res.status(404).json({ error: 'Position not found' });
       }
     );
 

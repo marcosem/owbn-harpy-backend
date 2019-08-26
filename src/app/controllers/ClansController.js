@@ -109,7 +109,7 @@ class ClansController {
     const clan = await Clans.findByPk(req.params.id);
 
     if (!clan) {
-      return res.status(400).json({ error: 'Status not found!' });
+      return res.status(400).json({ error: 'Clan not found!' });
     }
 
     await Clans.destroy({ where: { id: req.params.id } }).then(
@@ -117,7 +117,7 @@ class ClansController {
         if (deletedRecord === 1) {
           return res.status(200).json({ message: 'Deleted successfully' });
         }
-        return res.status(404).json({ error: 'Status not found' });
+        return res.status(404).json({ error: 'Clan not found' });
       }
     );
 

@@ -208,7 +208,9 @@ class StatusPositionController {
         if (deletedRecord === 1) {
           return res.status(200).json({ message: 'Deleted successfully' });
         }
-        return res.status(404).json({ error: 'Status not found' });
+        return res
+          .status(404)
+          .json({ error: 'Combination Status-Poisition not found' });
       }
     );
 
