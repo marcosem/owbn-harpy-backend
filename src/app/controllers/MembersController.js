@@ -21,6 +21,7 @@ class MembersController {
         'id',
         'kindred_name',
         'mortal_name',
+        'genre',
         'genre_en',
         'genre_pt',
         'email',

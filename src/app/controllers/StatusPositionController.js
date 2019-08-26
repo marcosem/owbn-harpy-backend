@@ -200,7 +200,7 @@ class StatusPositionController {
     if (!statusPosition) {
       return res
         .status(400)
-        .json({ error: 'Combination Status-Poisition not found!' });
+        .json({ error: 'Combination Status-Position not found!' });
     }
 
     await StatusPosition.destroy({ where: { id: req.params.id } }).then(
@@ -210,7 +210,7 @@ class StatusPositionController {
         }
         return res
           .status(404)
-          .json({ error: 'Combination Status-Poisition not found' });
+          .json({ error: 'Combination Status-Position not found' });
       }
     );
 
