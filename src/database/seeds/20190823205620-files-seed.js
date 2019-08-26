@@ -115,6 +115,20 @@ module.exports = {
           created_at: new Date(),
           updated_at: new Date(),
         },
+        {
+          name: 'female_kindred.jpg',
+          type: 'member',
+          path: '8496fb51a06dbc71739cf783c1517981.jpg',
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
+        {
+          name: 'male_kindred.jpg',
+          type: 'member',
+          path: '8bb47ac37a592e3543a29ea8b7b6055a.jpg',
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
       ],
       {}
     );

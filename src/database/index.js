@@ -7,6 +7,7 @@ import Files from '../app/models/Files';
 import Clans from '../app/models/Clans';
 import Domains from '../app/models/Domains';
 import Situations from '../app/models/Situations';
+import Members from '../app/models/Members';
 import databaseConfig from '../config/database';
 
 const models = [
@@ -17,6 +18,7 @@ const models = [
   Clans,
   Domains,
   Situations,
+  Members,
 ];
 
 class Database {

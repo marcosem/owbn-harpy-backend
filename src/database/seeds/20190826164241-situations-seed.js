@@ -10,7 +10,7 @@ module.exports = {
           updated_at: new Date(),
         },
         {
-          situation_en: 'Unknow',
+          situation_en: 'Unknown',
           situation_pt: 'Desconhecida',
           created_at: new Date(),
           updated_at: new Date(),

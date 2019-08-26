@@ -18,6 +18,11 @@ module.exports = {
         allowNull: true,
         comment: 'Mortal name, if known',
       },
+      genre: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        comment: 'Genre: 1 - male; 2 - female; null - unknown',
+      },
       clan_id: {
         type: Sequelize.INTEGER,
         references: { model: 'clans', key: 'id' },

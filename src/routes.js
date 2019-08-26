@@ -10,6 +10,7 @@ import FilesController from './app/controllers/FilesController';
 import ClansController from './app/controllers/ClansController';
 import DomainsController from './app/controllers/DomainsController';
 import SituationsController from './app/controllers/SituationsController';
+import MembersController from './app/controllers/MembersController';
 import multerConfig from './config/multer';
 
 const routes = new Router();
@@ -66,5 +67,13 @@ routes.get('/situations/:id', SituationsController.index); // Load Situation by 
 routes.post('/situations', SituationsController.store); // Save a Situation
 routes.put('/situations/:id', SituationsController.update); // Update an Situation by id
 routes.delete('/situations/:id', SituationsController.delete); // Remove an Situation by id
+
+// /////////////////////////////////////////////////////////////////////////////
+// Members Routes
+routes.get('/members', MembersController.index); // Load all Members
+routes.get('/members/:id', MembersController.index); // Load Member by id
+routes.post('/members', MembersController.store); // Save a Member
+routes.put('/members/:id', MembersController.update); // Update an Member by id
+routes.delete('/members/:id', MembersController.delete); // Remove an Member by id
 
 export default routes;

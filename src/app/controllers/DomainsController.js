@@ -41,7 +41,7 @@ class DomainsController {
     const domain = await Domains.create({
       name,
       main_city,
-      domain_picture: picture || 1,
+      domain_picture: picture || 16,
     });
 
     return res.json(domain);
