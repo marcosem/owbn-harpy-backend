@@ -108,6 +108,13 @@ module.exports = {
           created_at: new Date(),
           updated_at: new Date(),
         },
+        {
+          name: 'city-night_1325-128.jpg',
+          type: 'domain',
+          path: 'de76d31e33375a3a71185f790ae192e5.png',
+          created_at: new Date(),
+          updated_at: new Date(),
+        },
       ],
       {}
     );
