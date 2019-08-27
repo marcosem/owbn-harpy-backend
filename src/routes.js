@@ -12,6 +12,7 @@ import DomainsController from './app/controllers/DomainsController';
 import SituationsController from './app/controllers/SituationsController';
 import MembersController from './app/controllers/MembersController';
 import StatusMemberController from './app/controllers/StatusMemberController';
+import MemberFullStatusController from './app/controllers/MemberFullStatusController';
 import multerConfig from './config/multer';
 
 const routes = new Router();
@@ -78,11 +79,15 @@ routes.put('/members/:id', MembersController.update); // Update an Member by id
 routes.delete('/members/:id', MembersController.delete); // Remove an Member by id
 
 // /////////////////////////////////////////////////////////////////////////////
-// Members Status Members
+// Members Status Routes
 routes.get('/memberstatus', StatusMemberController.index); // Load all Member Status
 routes.get('/memberstatus/:id', StatusMemberController.index); // Load Status Member by id
 routes.post('/memberstatus', StatusMemberController.store); // Save a Status Member
 routes.put('/memberstatus/:id', StatusMemberController.update); // Update an Status Member by id
 routes.delete('/memberstatus/:id', StatusMemberController.delete); // Remove an Status Member by id
+
+// /////////////////////////////////////////////////////////////////////////////
+// Full Status from a Member Route
+routes.get('/memberallstatus/:id', MemberFullStatusController.index); // Load all Status of a member by its id
 
 export default routes;

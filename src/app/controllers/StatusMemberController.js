@@ -7,7 +7,7 @@ import Status from '../models/Status';
 
 class StatusMemberController {
   async index(req, res) {
-    const { member_id, activeOnly } = req.query;
+    const { member_id, activeOnly, positive } = req.query;
     const where = req.params.id ? { id: `${req.params.id}` } : {};
 
     if (member_id) {
@@ -22,6 +22,8 @@ class StatusMemberController {
     if (activeOnly) {
       where.is_removed = activeOnly !== true;
     }
+
+    const whereStatus = positive ? { is_negative: positive === 'false' } : null;
 
     const statusMember = await StatusMember.findAll({
       where,
@@ -45,6 +47,7 @@ class StatusMemberController {
         {
           model: Status,
           as: 'status',
+          where: whereStatus,
           attributes: ['title_en', 'title_pt', 'is_negative'],
         },
       ],
