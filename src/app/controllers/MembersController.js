@@ -9,14 +9,22 @@ import Files from '../models/Files';
 
 class MembersController {
   async index(req, res) {
-    // const { sort } = req.query;
+    const { domain_id, clan_id, situation_id } = req.query;
     const where = req.params.id ? { id: `${req.params.id}` } : {};
 
-    // const sortOrder = sort === 'pt' ? 'clan_pt' : 'clan_en';
+    if (domain_id) {
+      where.domain_id = domain_id;
+    }
+
+    if (clan_id) {
+      where.clan_id = clan_id;
+    }
+
+    where.situation_id = situation_id || 1;
 
     const members = await Members.findAll({
       where,
-      // order: [sortOrder],
+      order: ['kindred_name'],
       attributes: [
         'id',
         'kindred_name',

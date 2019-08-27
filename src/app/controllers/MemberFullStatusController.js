@@ -2,18 +2,102 @@
 import StatusMember from '../models/StatusMember';
 import StatusPosition from '../models/StatusPosition';
 import Positions from '../models/Positions';
+import Files from '../models/Files';
 import Members from '../models/Members';
 import Status from '../models/Status';
+import Clans from '../models/Clans';
+import Domains from '../models/Domains';
+import Situations from '../models/Situations';
 
 class MemberFullStatusController {
   async index(req, res) {
     // const where = req.params.id ? { member_id: `${req.params.id}` } : {};
+    // const { domain_id, clan_id, situation_id } = req.query;
     const member_id = req.params.id;
 
-    const member = await Members.findByPk(member_id);
-    if (!member) {
-      return res.status(400).json({ error: 'Member not found!' });
+    const where = member_id ? { id: member_id } : {};
+
+    /*
+    if (domain_id) {
+      where.domain_id = domain_id;
     }
+
+    if (clan_id) {
+      where.clan_id = clan_id;
+    }
+
+    where.situation_id = situation_id || 1;
+    */
+
+    const member = await Members.findOne({
+      where,
+      order: ['kindred_name'],
+      attributes: [
+        'id',
+        'kindred_name',
+        'mortal_name',
+        'genre',
+        'genre_en',
+        'genre_pt',
+        'position_id',
+        'domain_id',
+        'clan_id',
+        'email',
+        'note',
+      ],
+      include: [
+        {
+          model: Clans,
+          as: 'clan',
+          attributes: [
+            'id',
+            'clan_en',
+            'clan_pt',
+            'clan_short_name_en',
+            'clan_short_name_pt',
+          ],
+          include: [
+            {
+              model: Files,
+              as: 'clan_logo_file',
+              attributes: ['id', 'type', 'path', 'url'],
+            },
+          ],
+        },
+        {
+          model: Members,
+          as: 'sire',
+          attributes: ['id', 'kindred_name'],
+        },
+        {
+          model: Positions,
+          as: 'position',
+          attributes: ['id', 'position_en', 'position_pt'],
+        },
+        {
+          model: Domains,
+          as: 'domain',
+          attributes: ['id', 'name', 'main_city'],
+          include: [
+            {
+              model: Files,
+              as: 'picture',
+              attributes: ['id', 'type', 'path', 'url'],
+            },
+          ],
+        },
+        {
+          model: Situations,
+          as: 'situation',
+          attributes: ['id', 'situation_en', 'situation_pt'],
+        },
+        {
+          model: Files,
+          as: 'picture',
+          attributes: ['id', 'type', 'path', 'url'],
+        },
+      ],
+    });
 
     const statusPosition = member.position_id
       ? await StatusPosition.findAll({
@@ -36,17 +120,7 @@ class MemberFullStatusController {
 
     const statusMember = await StatusMember.findAll({
       where: { member_id, is_removed: false },
-      attributes: [
-        'id',
-        'member_id',
-        'status_id',
-        'giver',
-        'reason',
-        'date',
-        'is_removed',
-        'date_removed',
-        'reason_removed',
-      ],
+      attributes: ['id', 'member_id', 'status_id', 'giver', 'reason', 'date'],
       include: [
         {
           model: Status,
@@ -59,17 +133,7 @@ class MemberFullStatusController {
 
     const statusMemberNegative = await StatusMember.findAll({
       where: { member_id, is_removed: false },
-      attributes: [
-        'id',
-        'member_id',
-        'status_id',
-        'giver',
-        'reason',
-        'date',
-        'is_removed',
-        'date_removed',
-        'reason_removed',
-      ],
+      attributes: ['id', 'member_id', 'status_id', 'giver', 'reason', 'date'],
       include: [
         {
           model: Status,
@@ -80,61 +144,23 @@ class MemberFullStatusController {
       ],
     });
 
-    /*
-    const statusPenaulty = await StatusMember.findAll({
-      where: {
-        member_id,
-        is_removed: false,
-        status_id: { [Op.in]: [48, 55] },
-      },
-      attributes: ['id', 'member_id', 'status_id'],
-      include: [
-        {
-          model: Status,
-          as: 'status',
-          where: { is_negative: true },
-          attributes: ['id'],
-        },
-      ],
-    });
-
-    const positionPenaulty = await StatusMember.findAll({
-      where: {
-        member_id,
-        is_removed: false,
-        status_id: { [Op.in]: [50, 54] },
-      },
-      attributes: ['id', 'member_id', 'status_id'],
-      include: [
-        {
-          model: Status,
-          as: 'status',
-          where: { is_negative: true },
-          attributes: ['id'],
-        },
-      ],
-    });
-   */
-
-    const memberFullStatus = {
+    const membersFullStatus = {
       member,
       personalStatus: {
         total: statusMember.length,
-        // penaulty: statusPenaulty.length,
-        titles: statusMember,
+        status: statusMember,
       },
       positionalStatus: {
         total: statusPosition.length,
-        // penaulty: positionPenaulty.length > 0 ? statusPosition.length : 0,
-        titles: statusPosition,
+        status: statusPosition,
       },
       negativeStatus: {
         total: statusMemberNegative.length,
-        titles: statusMemberNegative,
+        status: statusMemberNegative,
       },
     };
 
-    return res.json(memberFullStatus);
+    return res.json(membersFullStatus);
   }
 }
 
