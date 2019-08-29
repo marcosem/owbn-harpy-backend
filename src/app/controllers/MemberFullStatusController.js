@@ -17,18 +17,6 @@ class MemberFullStatusController {
 
     const where = member_id ? { id: member_id } : {};
 
-    /*
-    if (domain_id) {
-      where.domain_id = domain_id;
-    }
-
-    if (clan_id) {
-      where.clan_id = clan_id;
-    }
-
-    where.situation_id = situation_id || 1;
-    */
-
     const member = await Members.findOne({
       where,
       order: ['kindred_name'],
@@ -98,6 +86,10 @@ class MemberFullStatusController {
         },
       ],
     });
+
+    if (!member) {
+      return res.json([]);
+    }
 
     const statusPosition = member.position_id
       ? await StatusPosition.findAll({

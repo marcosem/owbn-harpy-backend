@@ -49,7 +49,7 @@ module.exports = {
         allowNull: true,
         comment: 'Domain',
       },
-      supper_user: {
+      super_user: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,

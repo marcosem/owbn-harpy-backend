@@ -1,6 +1,6 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
+  "name": "harpy",
+  "version": "1.0.1",
   "main": "index.js",
   "repository": "https://github.com/marcosem/owbn-harpy-backend.git",
   "author": "Marcos Mathias <marcos-github@memathias.com>",

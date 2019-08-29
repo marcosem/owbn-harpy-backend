@@ -51,6 +51,8 @@ class FileController {
       }
     }
 
+    console.log(filePath);
+
     // delete the old image (path uploads)
     fs.unlinkSync(filePath);
 

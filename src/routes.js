@@ -13,10 +13,18 @@ import SituationsController from './app/controllers/SituationsController';
 import MembersController from './app/controllers/MembersController';
 import StatusMemberController from './app/controllers/StatusMemberController';
 import MemberFullStatusController from './app/controllers/MemberFullStatusController';
+import LoginsController from './app/controllers/LoginsController';
+import SessionController from './app/controllers/SessionController';
+import authMiddleware from './app/middlewares/auth';
 import multerConfig from './config/multer';
 
 const routes = new Router();
 const upload = multer(multerConfig);
+
+routes.post('/users', LoginsController.store); // Create user account
+routes.post('/sessions', SessionController.store); // Login
+
+routes.use(authMiddleware);
 
 // /////////////////////////////////////////////////////////////////////////////
 // Status Routes
@@ -90,5 +98,6 @@ routes.delete('/memberstatus/:id', StatusMemberController.delete); // Remove an 
 // Full Status from a Member Route
 // routes.get('/memberallstatus', MemberFullStatusController.index); // Load all members/status
 routes.get('/memberallstatus/:id', MemberFullStatusController.index); // Load all Status of a member by its id
+routes.put('/users', LoginsController.update); // Update user account
 
 export default routes;

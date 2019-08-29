@@ -9,6 +9,7 @@ import Domains from '../app/models/Domains';
 import Situations from '../app/models/Situations';
 import Members from '../app/models/Members';
 import StatusMember from '../app/models/StatusMember';
+import Logins from '../app/models/Logins';
 import databaseConfig from '../config/database';
 
 const models = [
@@ -21,6 +22,7 @@ const models = [
   Situations,
   Members,
   StatusMember,
+  Logins,
 ];
 
 class Database {
