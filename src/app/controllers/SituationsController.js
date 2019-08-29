@@ -53,6 +53,13 @@ class SituationsController {
       return res.status(400).json({ error: 'Situation not found!' });
     }
 
+    // Only superuser can execute this command
+    if (!req.superUser) {
+      if (situation.id <= 6) {
+        return res.status(401).json({ error: 'Permission Denied!' });
+      }
+    }
+
     const { situation_en, situation_pt } = req.body;
 
     await situation.update({
@@ -68,6 +75,13 @@ class SituationsController {
 
     if (!situation) {
       return res.status(400).json({ error: 'Situation not found!' });
+    }
+
+    // Only superuser can execute this command
+    if (!req.superUser) {
+      if (situation.id <= 6) {
+        return res.status(401).json({ error: 'Permission Denied!' });
+      }
     }
 
     await Situations.destroy({ where: { id: req.params.id } }).then(

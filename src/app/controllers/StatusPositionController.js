@@ -67,6 +67,11 @@ class StatusPositionController {
       return res.status(400).json({ error: 'Validation fails!' });
     }
 
+    // Only superuser can execute this command
+    if (!req.superUser) {
+      return res.status(401).json({ error: 'Permission Denied!' });
+    }
+
     const { position_id, status_id } = req.body;
 
     // Verify if the position exist
@@ -126,6 +131,11 @@ class StatusPositionController {
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails!' });
+    }
+
+    // Only superuser can execute this command
+    if (!req.superUser) {
+      return res.status(401).json({ error: 'Permission Denied!' });
     }
 
     const statusPosition = await StatusPosition.findByPk(req.params.id);
@@ -195,6 +205,11 @@ class StatusPositionController {
   }
 
   async delete(req, res) {
+    // Only superuser can execute this command
+    if (!req.superUser) {
+      return res.status(401).json({ error: 'Permission Denied!' });
+    }
+
     const statusPosition = await StatusPosition.findByPk(req.params.id);
 
     if (!statusPosition) {

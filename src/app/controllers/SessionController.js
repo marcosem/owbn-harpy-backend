@@ -28,7 +28,7 @@ class SessionController {
       return res.status(401).json({ error: 'Password does not match!' });
     }
 
-    const { id, name } = user;
+    const { id, name, domain_id, super_user } = user;
 
     return res.json({
       user: {
@@ -36,7 +36,7 @@ class SessionController {
         name,
         email,
       },
-      token: jwt.sign({ id }, authConfig.secret, {
+      token: jwt.sign({ id, super_user, domain_id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     });

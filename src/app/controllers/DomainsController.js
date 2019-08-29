@@ -3,7 +3,6 @@ import fs from 'fs';
 import path from 'path';
 import Domains from '../models/Domains';
 import Files from '../models/Files';
-import Logins from '../models/Logins';
 
 class DomainsController {
   async index(req, res) {
@@ -40,8 +39,7 @@ class DomainsController {
     }
 
     // User can change only his only domain, unless he is a super user
-    const user = await Logins.findByPk(req.userId);
-    if (!user.super_user) {
+    if (!req.superUser) {
       return res.status(401).json({ error: 'Permission Denied!' });
     }
 
@@ -74,9 +72,8 @@ class DomainsController {
     }
 
     // User can change only his only domain, unless he is a super user
-    const user = await Logins.findByPk(req.userId);
-    if (!user.super_user) {
-      if (user.domain_id !== domain.domain_id) {
+    if (!req.superUser) {
+      if (req.domainId !== domain.domain_id) {
         return res.status(401).json({ error: 'Permission Denied!' });
       }
     }
@@ -100,9 +97,8 @@ class DomainsController {
     }
 
     // User can delete only his only domain, unless he is a super user
-    const user = await Logins.findByPk(req.userId);
-    if (!user.super_user) {
-      if (user.domain_id !== domain.domain_id) {
+    if (!req.superUser) {
+      if (req.domainId !== domain.domain_id) {
         return res.status(401).json({ error: 'Permission Denied!' });
       }
     }

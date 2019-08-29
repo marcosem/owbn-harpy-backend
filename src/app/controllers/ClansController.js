@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 import Clans from '../models/Clans';
-import Logins from '../models/Logins';
 import Files from '../models/Files';
 
 class ClansController {
@@ -41,9 +40,7 @@ class ClansController {
       clan_logo: Yup.number(),
     });
 
-    const user = await Logins.findByPk(req.userId);
-
-    if (!user.super_user) {
+    if (!req.superUser) {
       return res.status(401).json({ error: 'Permission Denied!' });
     }
 
@@ -79,9 +76,7 @@ class ClansController {
       clan_logo: Yup.number(),
     });
 
-    const user = await Logins.findByPk(req.userId);
-
-    if (!user.super_user) {
+    if (!req.superUser) {
       return res.status(401).json({ error: 'Permission Denied!' });
     }
 
@@ -119,9 +114,7 @@ class ClansController {
   }
 
   async delete(req, res) {
-    const user = await Logins.findByPk(req.userId);
-
-    if (!user.super_user) {
+    if (!req.superUser) {
       return res.status(401).json({ error: 'Permission Denied!' });
     }
 
