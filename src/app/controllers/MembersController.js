@@ -1,4 +1,6 @@
 import * as Yup from 'yup';
+import fs from 'fs';
+import path from 'path';
 import Members from '../models/Members';
 import Clans from '../models/Clans';
 import Positions from '../models/Positions';
@@ -181,6 +183,31 @@ class MembersController {
       member_picture,
     } = req.body;
 
+    // manage picture deletation
+    if (
+      member.member_picture > 18 &&
+      member.member_picture !== member_picture
+    ) {
+      const picture = await Files.findByPk(member.member_picture);
+      const filePath = picture
+        ? path.resolve(
+            __dirname,
+            '..',
+            '..',
+            '..',
+            'tmp',
+            'uploads',
+            'members',
+            picture.path
+          )
+        : null;
+
+      if (picture && filePath !== null) {
+        fs.unlinkSync(filePath);
+        Files.destroy({ where: { id: member.member_picture } });
+      }
+    }
+
     await member.update({
       kindred_name: !kindred_name ? member.kindred_name : kindred_name,
       mortal_name: !mortal_name ? member.mortal_name : mortal_name,
@@ -203,6 +230,28 @@ class MembersController {
 
     if (!member) {
       return res.status(400).json({ error: 'Member not found!' });
+    }
+
+    // manage picture deletation
+    if (member.member_picture > 18) {
+      const picture = await Files.findByPk(member.member_picture);
+      const filePath = picture
+        ? path.resolve(
+            __dirname,
+            '..',
+            '..',
+            '..',
+            'tmp',
+            'uploads',
+            'members',
+            picture.path
+          )
+        : null;
+
+      if (picture && filePath !== null) {
+        fs.unlinkSync(filePath);
+        Files.destroy({ where: { id: member.member_picture } });
+      }
     }
 
     await Members.destroy({ where: { id: req.params.id } }).then(

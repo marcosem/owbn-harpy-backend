@@ -1,4 +1,6 @@
 import * as Yup from 'yup';
+import fs from 'fs';
+import path from 'path';
 import Clans from '../models/Clans';
 import Files from '../models/Files';
 
@@ -98,6 +100,28 @@ class ClansController {
       clan_logo,
     } = req.body;
 
+    // manage picture deletation
+    if (clan.clan_logo > 18 && clan.clan_logo !== clan_logo) {
+      const picture = await Files.findByPk(clan.clan_logo);
+      const filePath = picture
+        ? path.resolve(
+            __dirname,
+            '..',
+            '..',
+            '..',
+            'tmp',
+            'uploads',
+            'clan',
+            picture.path
+          )
+        : null;
+
+      if (picture && filePath !== null) {
+        fs.unlinkSync(filePath);
+        Files.destroy({ where: { id: clan.clan_logo } });
+      }
+    }
+
     await clan.update({
       clan_en: !clan_en ? clan.clan_en : clan_en,
       clan_pt: !clan_pt ? clan.clan_pt : clan_pt,
@@ -122,6 +146,28 @@ class ClansController {
 
     if (!clan) {
       return res.status(400).json({ error: 'Clan not found!' });
+    }
+
+    // manage picture deletation
+    if (clan.clan_logo > 18) {
+      const picture = await Files.findByPk(clan.clan_logo);
+      const filePath = picture
+        ? path.resolve(
+            __dirname,
+            '..',
+            '..',
+            '..',
+            'tmp',
+            'uploads',
+            'clan',
+            picture.path
+          )
+        : null;
+
+      if (picture && filePath !== null) {
+        fs.unlinkSync(filePath);
+        Files.destroy({ where: { id: clan.clan_logo } });
+      }
     }
 
     await Clans.destroy({ where: { id: req.params.id } }).then(

@@ -80,6 +80,28 @@ class DomainsController {
 
     const { name, main_city, picture } = req.body;
 
+    // manage picture deletation
+    if (domain.domain_picture > 18 && domain.domain_picture !== picture) {
+      const pic = await Files.findByPk(domain.domain_picture);
+      const filePath = pic
+        ? path.resolve(
+            __dirname,
+            '..',
+            '..',
+            '..',
+            'tmp',
+            'uploads',
+            'domains',
+            pic.path
+          )
+        : null;
+
+      if (pic && filePath !== null) {
+        fs.unlinkSync(filePath);
+        Files.destroy({ where: { id: domain.domain_picture } });
+      }
+    }
+
     await domain.update({
       name: !name ? domain.name : name,
       main_city: !main_city ? domain.main_city : main_city,
