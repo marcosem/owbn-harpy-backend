@@ -125,7 +125,7 @@ class LoginsController {
       login: login || user.login,
       email: email || user.email,
       password: password || user.password,
-      is_st: is_st || user.is_st,
+      is_st: is_st !== undefined ? is_st : user.is_st,
       member_id: member_id || user.member_id,
       domain_id: domain_id || user.domain_id,
       super_user: super_user !== undefined ? super_user : user.super_user,
