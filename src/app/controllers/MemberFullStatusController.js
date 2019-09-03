@@ -209,8 +209,6 @@ class MemberFullStatusController {
         return item;
       });
 
-      // const newMember = JSON.stringify(member);
-
       return {
         ...JSON.parse(JSON.stringify(member)),
         positionalStatus: statusPositionCount,
