@@ -71,7 +71,7 @@ class SessionController {
         ? `${login}, ${member.position.position_en}`
         : login;
       nameAndTitles = member.domain
-        ? `${nameAndTitles} from ${member.domain.name}`
+        ? `${nameAndTitles} of ${member.domain.name}`
         : nameAndTitles;
     }
 

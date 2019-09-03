@@ -98,6 +98,7 @@ routes.delete('/memberstatus/:id', StatusMemberController.delete); // Remove an 
 // Full Status from a Member Route
 // routes.get('/memberallstatus', MemberFullStatusController.index); // Load all members/status
 routes.get('/memberallstatus/:id', MemberFullStatusController.index); // Load all Status of a member by its id
+routes.get('/memberallstatus', MemberFullStatusController.index); // Load all Status of a members
 routes.put('/users', LoginsController.update); // Update user account
 
 export default routes;

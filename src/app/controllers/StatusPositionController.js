@@ -5,7 +5,7 @@ import Status from '../models/Status';
 
 class StatusPositionController {
   async index(req, res) {
-    const { position_id, formatted } = req.query;
+    const { position_id, formatted, totalOnly } = req.query;
     const where = req.params.id ? { id: `${req.params.id}` } : {};
 
     const position = await Positions.findByPk(position_id);
@@ -15,6 +15,11 @@ class StatusPositionController {
 
     if (position_id) {
       where.position_id = position_id;
+    }
+
+    if (totalOnly && totalOnly === 'true') {
+      const totalStatusPosition = await StatusPosition.count({ where });
+      return res.json(totalStatusPosition);
     }
 
     const statusPosition = await StatusPosition.findAll({

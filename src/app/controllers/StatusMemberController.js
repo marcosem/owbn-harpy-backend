@@ -7,7 +7,7 @@ import Status from '../models/Status';
 
 class StatusMemberController {
   async index(req, res) {
-    const { member_id, activeOnly, positive } = req.query;
+    const { member_id, activeOnly, positive, totalOnly } = req.query;
     const where = req.params.id ? { id: `${req.params.id}` } : {};
 
     if (member_id) {
@@ -24,6 +24,11 @@ class StatusMemberController {
     }
 
     const whereStatus = positive ? { is_negative: positive === 'false' } : null;
+
+    if (totalOnly && totalOnly === 'true') {
+      const totalStatusMember = await StatusMember.count({ where });
+      return res.json(totalStatusMember);
+    }
 
     const statusMember = await StatusMember.findAll({
       where,
