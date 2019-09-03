@@ -156,6 +156,7 @@ class MemberFullStatusController {
     }
 
     const members = await Members.findAll({
+      where: { situation_id: 1 },
       order: ['kindred_name'],
       attributes: ['id', 'kindred_name', 'position_id', 'domain_id', 'clan_id'],
       include: [
